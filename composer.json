@@ -1,0 +1,55 @@
+{
+    "name": "polliedev/laravel-error-tracker",
+    "description": "",
+    "keywords": [
+        "polliedev",
+        "laravel-error-tracker"
+    ],
+    "homepage": "https://github.com/polliedev/laravel-error-tracker",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Pieter Jan Pollie",
+            "email": "hello@pollie.dev",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "guzzlehttp/guzzle": "^6.0.2",
+        "illuminate/support": "5.8.*|^6.0|^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PollieDev\\LaravelErrorTracker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PollieDev\\LaravelErrorTracker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PollieDev\\LaravelErrorTracker\\LaravelErrorTrackerServiceProvider"
+            ],
+            "aliases": {
+                "LaravelErrorTracker": "PollieDev\\LaravelErrorTracker\\LaravelErrorTrackerFacade"
+            }
+        }
+    }
+}
