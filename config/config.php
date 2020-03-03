@@ -9,7 +9,7 @@ return [
      * It will automatically append "/api/report" after it with all the data regarding the error.
      *
      * This is meant to be used with https://github.com/polliedev/laravel-error-tracker-app
-     * but you are free to make your own application.
+     * but you are free to make your own application with the data sent to the API.
      */
     'base_url' => 'https://laravel-error-tracker-app.test',
 
@@ -18,10 +18,5 @@ return [
      * It should be an array with key-value pairs of information.
      * You are also able to provide a function as a key. It'll be resolved on the moment it's sending the data to the app.
      */
-    'metaData' => [
-        'test' => '123',
-        'test2' => function() {
-            return "lmaoo";
-        }
-    ]
+    'metaData' => []
 ];
