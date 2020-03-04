@@ -178,7 +178,7 @@ class LaravelErrorTracker
     }
 
     private function getMetaData() {
-        $metaData = config('error-tracker.metaData');
+        $metaData = config('error-tracker.meta_data');
         foreach ($metaData as $key => $value) {
             if ($value instanceof Closure) {
                 $metaData[$key] = $value();

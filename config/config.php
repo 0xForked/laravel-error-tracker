@@ -18,5 +18,5 @@ return [
      * It should be an array with key-value pairs of information.
      * You are also able to provide a function as a key. It'll be resolved on the moment it's sending the data to the app.
      */
-    'metaData' => []
+    'meta_data' => []
 ];
