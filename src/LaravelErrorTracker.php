@@ -8,6 +8,7 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
 use RuntimeException;
 use Symfony\Component\Process\Process;
+use Throwable;
 
 class LaravelErrorTracker
 {
@@ -26,14 +27,14 @@ class LaravelErrorTracker
         $this->config_meta_data = $this->getMetaData();
     }
 
-    public static function Report(\Exception $exception) {
+    public static function Report(Throwable $exception) {
         if (!self::$reported) {
             (new self())->handle(request(), $exception);
             self::$reported = true;
         }
     }
 
-    protected function handle(Request $request, \Exception $exception) {
+    protected function handle(Request $request, Throwable $exception) {
         if (config('app.debug') || !$this->config_base_url) {
             return;
         }
