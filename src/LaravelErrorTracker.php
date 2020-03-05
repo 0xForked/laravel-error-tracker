@@ -12,10 +12,19 @@ use Symfony\Component\Process\Process;
 class LaravelErrorTracker
 {
 
-    static $reported = false;
+    private static $reported = false;
+    public static $base_url;
+    public static $meta_data;
 
     protected $exception;
     protected $snippetLineCount = 31;
+    protected $config_base_url;
+    protected $config_meta_data;
+
+    public function __construct() {
+        $this->config_base_url = static::$base_url ?? config('error-tracker.base_url');
+        $this->config_meta_data = $this->getMetaData();
+    }
 
     public static function Report(\Exception $exception) {
         if (!self::$reported) {
@@ -25,7 +34,7 @@ class LaravelErrorTracker
     }
 
     protected function handle(Request $request, \Exception $exception) {
-        if (config('app.debug') || !config('error-tracker.base_url')) {
+        if (config('app.debug') || !$this->config_base_url) {
             return;
         }
 
@@ -178,7 +187,7 @@ class LaravelErrorTracker
     }
 
     private function getMetaData() {
-        $metaData = config('error-tracker.meta_data');
+        $metaData = static::$meta_data ?? config('error-tracker.meta_data');
         foreach ($metaData as $key => $value) {
             if ($value instanceof Closure) {
                 $metaData[$key] = $value();
@@ -191,15 +200,15 @@ class LaravelErrorTracker
     private function request($payload) {
         try {
             $client = new Client(['verify' => false]);
-            $client->post(static::getUrl(), [
+            $client->post($this->getUrl(), [
                 RequestOptions::JSON => $payload
             ]);
         } catch(\Exception $e) {
         }
     }
 
-    private static function getUrl(): string {
-        $url = config('error-tracker.base_url');
+    private function getUrl(): string {
+        $url = $this->config_base_url;
 
         return trim($url, '/') . "/api/report";
     }

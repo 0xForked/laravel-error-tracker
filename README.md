@@ -22,3 +22,14 @@ Do not append the `/api/report` (which is the endpoint) to the URL.
 Next to the base_url you'll also find a `meta_data` option in the config.
 This is additional data that you'd like to send to the tracker app. It should be an associative array with values that are either a value that can be json decoded or a function (if you need more complex things to be parsed) that returns a value that can be decoded.  
 This could be the version of your CMS or any specific information.
+
+## For frameworks
+If you implement this package into your own made framework you could require this package in your core framework package and in the serviceprovider you can call 
+```
+\PollieDev\LaravelErrorTracker\LaravelErrorTracker::$base_url = "{Your App URL here}";
+```
+and
+```
+\PollieDev\LaravelErrorTracker\LaravelErrorTracker::$meta_data = [{YOUR DATA HERE}];
+```
+to simply override the config. If these values are set it'll ingore the config values and take these ones. 

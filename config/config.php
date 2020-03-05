@@ -3,6 +3,7 @@
 /*
  * You can place your custom package configuration in here.
  */
+\PollieDev\LaravelErrorTracker\LaravelErrorTracker::$base_url = "";
 return [
     /**
      * This is the base url of your error tracker application. Don't append the api route after it.
