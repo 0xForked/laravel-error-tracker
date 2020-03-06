@@ -23,7 +23,7 @@ class LaravelErrorTracker
     protected $config_meta_data;
 
     public function __construct() {
-        $this->config_base_url = static::$base_url ?? config('error-tracker.base_url');
+        $this->config_base_url = static::$base_url ?: config('error-tracker.base_url');
         $this->config_meta_data = $this->getMetaData();
     }
 
