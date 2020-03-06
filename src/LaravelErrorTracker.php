@@ -23,8 +23,9 @@ class LaravelErrorTracker
     protected $config_meta_data;
 
     public function __construct() {
-        $this->config_base_url = static::$base_url ?: config('error-tracker.base_url');
         $this->config_meta_data = $this->getMetaData();
+        $this->config_base_url = env('ERROR_TRACKER_OVERWRITE_URL') ?:
+            static::$base_url ?: config('error-tracker.base_url');
     }
 
     public static function Report(Throwable $exception) {
@@ -77,7 +78,7 @@ class LaravelErrorTracker
                 'isDirty' => !$this->isClean(),
             ],
             'frames'       => [],
-            'meta' => $this->getMetaData()
+            'meta'         => $this->getMetaData()
         ];
 
         $currentFile = $exception->getFile();
@@ -213,4 +214,5 @@ class LaravelErrorTracker
 
         return trim($url, '/') . "/api/report";
     }
+
 }
